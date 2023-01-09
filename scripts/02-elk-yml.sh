@@ -10,7 +10,7 @@ sed -i '/network.host:/c\network.host: 0.0.0.0' $file
 
 # Check and append discovery.type: single-node
 pattern2=discovery.type
-if grep -q $pattern2 elasticsearch.yml
+if grep -q $pattern2 $file
 then
   echo 'discovery.type found; re-set to single-node'
   sed -i '/discovery.type/c\discovery.type: single-node' $file
