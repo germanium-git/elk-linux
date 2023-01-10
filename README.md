@@ -69,7 +69,10 @@ Discovery
 
 ### Prometheus
 
+Install Prometheus
+```bash
 10-prometheus-install.sh
+```
 
 Check the version
 ```bash
@@ -78,6 +81,16 @@ promtool --version
 ```
 
 #### ELK exporter
+
+More information can be found here:
+https://bidhankhatri.com.np/elk/monitoring-elasticsearch-cluster/
+https://github.com/prometheus-community/elasticsearch_exporter
+
+
+Install ELK exporter
+```bash
+sudo sh 05-es-exporter.sh
+```
 
 Check if the service node_exporter is running
 ```bash
@@ -92,6 +105,11 @@ curl http://localhost:9114/metrics
 #### Linux node exporter
 
 https://prometheus.io/docs/guides/node-exporter/
+
+Install ELK exporter
+```bash
+sudo sh 06-node-exporter.sh
+```
 
 Check if the service node_exporter is running
 ```bash
