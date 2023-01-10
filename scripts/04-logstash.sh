@@ -50,7 +50,10 @@ filter {
 }
 
 output {
-  elasticsearch { hosts => ["localhost:9200"] }
+  elasticsearch { 
+    hosts => ["localhost:9200"] 
+    index => "auth-%{+YYYY.MM.dd}"
+    }
   stdout { codec => rubydebug }
 }
 EOF
