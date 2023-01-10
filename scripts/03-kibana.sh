@@ -10,3 +10,7 @@ sed -i '/server.host:/c\server.host: "0.0.0.0"' $file
 sed -i '/elasticsearch.hosts:/c\elasticsearch.hosts: ["http://localhost:9200"]' $file
 
 systemctl start kibana
+
+pubip=$(curl ifconfig.me)
+
+echo "Try to access Kibana on http://$pubip:5106"
