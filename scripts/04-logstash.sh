@@ -72,6 +72,14 @@ input {
     }
 }
 
+filter {
+  if [message] =~ "RT_FLOW" {
+    mutate {
+      add_tag => "FLOW"
+    }
+  }
+}
+
 output {
   elasticsearch {
     hosts => ["localhost:9200"]
