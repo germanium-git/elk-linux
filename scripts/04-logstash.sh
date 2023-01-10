@@ -78,6 +78,21 @@ filter {
       add_tag => "FLOW"
     }
   }
+  if [message] =~ "RT_FLOW_SESSION_CREATE" {
+    grok {
+      match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{HOSTNAME:hostname} RT_FLOW: %{DATA:status}: .*created %{IP:src_addr}/%{DATA:src_port}->%{IP:dst_addr}/%{DATA:dst_port} %{DATA:unused} %{DATA:service} %{IP:src_ip}/%{DATA:src_port}->%{IP:dst_ip}/%{DATA:dst_port}" }
+    }
+  }
+  if [message] =~ "RT_FLOW_SESSION_DENY" {
+    grok {
+      match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{HOSTNAME:hostname} RT_FLOW: %{DATA:status}: .*denied %{IP:src_addr}/%{DATA:src_port}->%{IP:dst_addr}/%{DATA:dst_port}" }
+    }
+  }
+  if [message] =~ "RT_FLOW_SESSION_CLOSE" {
+    grok {
+      match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{HOSTNAME:hostname} RT_FLOW: %{DATA:status}: .*closed %{DATA:reason}: %{IP:src_addr}/%{DATA:src_port}->%{IP:dst_addr}/%{DATA:dst_port} %{DATA:unused} %{DATA:service} %{IP:src_ip}/%{DATA:src_port}->%{IP:dst_ip}/%{DATA:dst_port}" }
+    }
+  }
 }
 
 output {
