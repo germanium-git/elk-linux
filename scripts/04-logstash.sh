@@ -2,7 +2,20 @@
 
 apt-get install logstash
 
-cat << EOF > /etc/logstash/conf.d/auth-log.conf
+# Configure two logstash pipelines
+
+mv /etc/logstash/pipelines.yml  /etc/logstash/pipelines.yml.backup
+
+cat << EOF > /etc/logstash/pipelines.yml
+- pipeline.id: srx
+  path.config: "/etc/logstash/conf.d/srx.conf"
+- pipeline.id: auth
+  path.config: "/etc/logstash/conf.d/auth.conf"
+EOF
+
+# Configure auth pipeline
+
+cat << EOF > /etc/logstash/conf.d/auth.conf
 input {
   file {
     path => "/var/log/auth.log"
@@ -42,5 +55,30 @@ output {
 }
 EOF
 
+# Make the log file accessible for logstash
 chmod 644 /var/log/auth.log
+
+
+# Configure the 2nd pipeline to read SRX syslog
+
+cat << EOF > /etc/logstash/conf.d/srx.conf
+input {
+    udp {
+        port => 5000
+        type => "syslog"
+    }
+}
+
+output {
+  elasticsearch {
+    hosts => ["localhost:9200"]
+    index => "srx-%{+YYYY.MM.dd}"
+    }
+  stdout { codec => rubydebug }
+}
+EOF
+
+
+# Start logstash service
+
 systemctl start logstash.service
