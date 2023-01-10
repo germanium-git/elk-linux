@@ -41,3 +41,6 @@ output {
   stdout { codec => rubydebug }
 }
 EOF
+
+chmod 644 /var/log/auth.log
+systemctl start logstash.service
