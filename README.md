@@ -69,9 +69,9 @@ Discovery
 
 ### Prometheus
 
-Install Prometheus
+Install Prometheus on prm-01.
 ```bash
-10-prometheus-install.sh
+07-prometheus.sh
 ```
 
 Check the version
@@ -87,7 +87,7 @@ https://bidhankhatri.com.np/elk/monitoring-elasticsearch-cluster/
 https://github.com/prometheus-community/elasticsearch_exporter
 
 
-Install ELK exporter
+Install ELK exporter on elk-01
 ```bash
 sudo sh 05-es-exporter.sh
 ```
@@ -104,9 +104,10 @@ curl http://localhost:9114/metrics
 
 #### Linux node exporter
 
+More information can be found here:
 https://prometheus.io/docs/guides/node-exporter/
 
-Install ELK exporter
+Install ELK exporter on elk-01
 ```bash
 sudo sh 06-node-exporter.sh
 ```
@@ -122,3 +123,20 @@ curl http://localhost:9100/metrics
 ```
 
 #### Grafana
+
+Import the ready-made 
+
+
+### Shortcuts
+
+```bash
+wget https://raw.githubusercontent.com/germanium-git/elk-linux/main/scripts/01-elk-setup.sh
+wget https://raw.githubusercontent.com/germanium-git/elk-linux/main/scripts/02-elk-yml.sh
+wget https://raw.githubusercontent.com/germanium-git/elk-linux/main/scripts/03-kibana.sh
+wget https://raw.githubusercontent.com/germanium-git/elk-linux/main/scripts/04-logstash.sh
+wget https://raw.githubusercontent.com/germanium-git/elk-linux/main/scripts/05-es-exporter.sh
+wget https://raw.githubusercontent.com/germanium-git/elk-linux/main/scripts/06-node-exporter.sh
+wget https://raw.githubusercontent.com/germanium-git/elk-linux/main/scripts/07-prometheus.sh
+
+sudo chmod +x 0*
+```
